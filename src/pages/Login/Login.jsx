@@ -1,8 +1,10 @@
 import "./Login.css";
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
+  const nav = useNavigate();
   const idRef = useRef();
   const pwRef = useRef();
 
@@ -43,11 +45,16 @@ const Login = () => {
             return;
           }
 
-          // JWT 토큰 파싱
-          const token = res.headers.authorization.replace("Bearer ", "");
+          const accessToken = res.headers.access;
 
-          // localStorage에 JWT 토큰 저장
-          localStorage.setItem("token", token);
+          // // localStorage에 JWT 토큰 저장
+          localStorage.setItem("access", accessToken);
+
+          if (localStorage.getItem("access")) {
+            nav("/");
+          } else {
+            nav("/login");
+          }
         })
         .catch((error) => {
           alert("로그인 정보가 일치하지 않습니다. 다시 시도해 주세요.");
