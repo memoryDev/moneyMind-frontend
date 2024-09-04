@@ -1,12 +1,17 @@
 import "./Login.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 
 const Login = () => {
+  const idRef = useRef();
+  const pwRef = useRef();
+
   const [state, setState] = useState({
     userid: "",
     password: "",
   });
+
+  const { userid, password } = state;
 
   const stateHandler = (e) => {
     setState({
@@ -15,14 +20,22 @@ const Login = () => {
     });
   };
 
+  /**
+   * 로그인 기능
+   * @returns
+   */
   const loginHandler = () => {
     try {
+      if (!validationForm()) {
+        return;
+      }
+
       const formData = new FormData();
-      formData.append("username", state.userid);
+      formData.append("userid", state.userid);
       formData.append("password", state.password);
 
       axios
-        .post("http://localhost:9000/login", formData)
+        .post("/api/login", formData)
         .then((res) => {
           // 만약 api 통신 실패했을시
           if (res.status !== 200) {
@@ -30,19 +43,38 @@ const Login = () => {
             return;
           }
 
+          // JWT 토큰 파싱
           const token = res.headers.authorization.replace("Bearer ", "");
-          console.log("token : " + token);
 
           // localStorage에 JWT 토큰 저장
           localStorage.setItem("token", token);
         })
         .catch((error) => {
-          console.log("===== error =====");
-          console.log(error);
+          alert("로그인 정보가 일치하지 않습니다. 다시 시도해 주세요.");
         });
     } catch (error) {
-      console.error("login failed", error);
+      alert("통신중 오류가 발생하였습니다. 잠시후 시도해주세요.");
     }
+  };
+
+  /**
+   * form 입력값 유효성 체크
+   * @returns
+   */
+  const validationForm = () => {
+    if (!userid.trim()) {
+      alert("아이디를 입력해주세요.");
+      idRef.current.focus();
+      return false;
+    }
+
+    if (!password.trim()) {
+      alert("비밀번호를 입력해주세요.");
+      pwRef.current.focus();
+      return false;
+    }
+
+    return true;
   };
 
   return (
@@ -59,6 +91,7 @@ const Login = () => {
               placeholder="아이디"
               value={state.userid}
               onChange={stateHandler}
+              ref={idRef}
             />
             <input
               type="password"
@@ -68,6 +101,7 @@ const Login = () => {
               placeholder="비밀번호"
               value={state.password}
               onChange={stateHandler}
+              ref={pwRef}
             />
           </div>
           <div className="login_btn_wrap">
