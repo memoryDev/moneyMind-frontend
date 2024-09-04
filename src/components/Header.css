@@ -1,0 +1,45 @@
+.header_wrap {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+.header_wrap .header_box {
+  margin: 0 auto;
+  width: 1100px;
+  padding: 0 20px;
+
+  display: flex;
+}
+.header_wrap .header_box .header_logo {
+  width: 185px;
+  height: 100px;
+  background: url(/src/assets/images/logo.png) no-repeat 0 50%;
+  background-size: 200px;
+}
+
+.header_wrap .header_box .header_nav_box {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 305px);
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+.header_wrap .header_box .header_nav_box .header_nav_item {
+  padding: 0 30px;
+  font-size: 18px;
+}
+
+.header_wrap .header_box .header_login_box {
+  width: 120px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.header_wrap .header_box .header_login_box .header_login_item {
+  padding: 0 5px;
+}

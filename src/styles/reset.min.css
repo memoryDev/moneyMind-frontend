@@ -132,4 +132,10 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+#root {
+  padding-top: 100px;
+  height: 100vh;
+  box-sizing: border-box;
+}
 /*# sourceMappingURL=/sm/5afe8c7b72cef7e558e6906b60d8730580a09d990f202e65e984835fa5d757cc.map */
