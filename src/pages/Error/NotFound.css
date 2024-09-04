@@ -1,0 +1,55 @@
+.notfound_wrap {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notfound_wrap .notfound_box {
+  background: url(/src/assets/images/logo.png) no-repeat 50% 0;
+  background-size: 400px;
+  width: 500px;
+  padding-top: 120px;
+}
+
+.notfound_wrap h1 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 35px;
+  margin-bottom: 10px;
+}
+
+.notfound_wrap h2 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.notfound_wrap p {
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.notfound_wrap .home_btn {
+  text-decoration: none;
+  outline: none;
+  display: block;
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: rgb(231, 236, 253);
+  color: rgb(75, 90, 214);
+  margin: 0 auto;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.notfound_wrap .home_btn:hover,
+.notfound_wrap .home_btn:active {
+  text-decoration: none;
+  color: rgb(75, 90, 214);
+  background: rgb(231, 236, 253);
+}
