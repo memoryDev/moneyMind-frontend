@@ -32,6 +32,17 @@
   font-size: 18px;
 }
 
+.header_wrap .header_box .header_nav_box .header_nav_item .nav_item_link {
+  display: block;
+  text-decoration: none;
+  outline: none;
+  color: #333;
+}
+.header_wrap .header_box .header_nav_box .header_nav_item:hover .nav_item_link {
+  text-decoration: none;
+  font-weight: bold;
+}
+
 .header_wrap .header_box .header_login_box {
   width: 120px;
   display: flex;
