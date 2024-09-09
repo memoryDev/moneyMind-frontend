@@ -1,56 +1,73 @@
 import "./Header.css";
-import { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import Gnb from "./Gnb";
+import { useAuth } from "./auth/AuthProvider";
+
 const Header = () => {
+  const { isAuthenticated, logout } = useAuth();
   const nav = useNavigate();
   const location = useLocation();
-  const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
-    const publicPage = ["/", "/login", "/*"];
-    const token = localStorage.getItem("access");
+    const publicPage = ["/", "/*", "/login"];
 
-    // token이 있으면 로그인 상태로 전환
-    if (token) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
-
-    // 로그인해야 되는 페이지 이거나, 토큰이 없을경우 로그인 페이지로 이동
-    if (!publicPage.includes(location.pathname) && !token) {
+    // 로그인해야 되는 페이지 이거나, 비로그인 상태일 경우
+    if (!publicPage.includes(location.pathname) && !isAuthenticated) {
       alert("로그인 페이지로 이동합니다.");
       nav("/login");
       return;
     }
 
-    // 로그인페이지이고 토큰이 있는경우
-    if (isLogin && token) {
-      // 추후에 이전페이지로 이동하는 기능 수정 예정
+    // 로그인페이지이고 로그인 상태인 있는경우
+    if (location.pathname === "/login" && isAuthenticated) {
       nav("/");
     }
-  }, [location, nav]);
+  }, [location, nav, isAuthenticated]);
+
+  const logoutHandler = async () => {
+    if (!confirm("로그아웃 하시겠습니까?")) {
+      return;
+    }
+
+    const success = await logout();
+
+    if (success) {
+      // 로그아웃 성공했을시
+      nav("/login");
+    } else {
+      nav("/");
+    }
+  };
 
   return (
     <header className="header_wrap">
       <div className="header_box">
         <h1 className="header_logo"></h1>
         <Gnb />
-        {/* <ul className="header_nav_box">
-          <li className="header_nav_item">메뉴1</li>
-          <li className="header_nav_item">메뉴2</li>
-          <li className="header_nav_item">메뉴3</li>
-        </ul> */}
         <div className="header_login_box">
-          {!isLogin ? (
+          {!isAuthenticated ? (
             <>
-              <p className="header_login_item">로그인</p>
-              <p className="header_login_item">회원가입</p>
+              <Link to="/login" className="header_login_item">
+                로그인
+              </Link>
+              <Link
+                to="/"
+                className="header_login_item"
+                onClick={(e) => {
+                  alert("페이지 작업중입니다.");
+                  e.preventDefault();
+                  return;
+                }}
+              >
+                회원가입
+              </Link>
             </>
           ) : (
             <>
-              <p className="header_login_item">로그아웃</p>
+              <button className="header_login_item" onClick={logoutHandler}>
+                로그아웃
+              </button>
             </>
           )}
         </div>

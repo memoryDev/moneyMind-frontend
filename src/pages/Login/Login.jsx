@@ -2,8 +2,11 @@ import "./Login.css";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../../components/auth/AuthProvider";
 
 const Login = () => {
+  const { isAuthenticated, setIsAuthenticated, login } = useAuth();
+
   const nav = useNavigate();
   const idRef = useRef();
   const pwRef = useRef();
@@ -26,41 +29,16 @@ const Login = () => {
    * 로그인 기능
    * @returns
    */
-  const loginHandler = () => {
-    try {
-      if (!validationForm()) {
-        return;
-      }
+  const loginHandler = async () => {
+    if (!validationForm()) {
+      return;
+    }
 
-      const formData = new FormData();
-      formData.append("userid", state.userid);
-      formData.append("password", state.password);
-
-      axios
-        .post("/api/login", formData)
-        .then((res) => {
-          // 만약 api 통신 실패했을시
-          if (res.status !== 200) {
-            alert("API 통신에 실패 하였습니다.");
-            return;
-          }
-
-          const accessToken = res.headers.access;
-
-          // // localStorage에 JWT 토큰 저장
-          localStorage.setItem("access", accessToken);
-
-          if (localStorage.getItem("access")) {
-            nav("/");
-          } else {
-            nav("/login");
-          }
-        })
-        .catch((error) => {
-          alert("로그인 정보가 일치하지 않습니다. 다시 시도해 주세요.");
-        });
-    } catch (error) {
-      alert("통신중 오류가 발생하였습니다. 잠시후 시도해주세요.");
+    const success = await login(state.userid, state.password);
+    if (success) {
+      nav("/");
+    } else {
+      nav("/login");
     }
   };
 
