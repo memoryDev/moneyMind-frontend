@@ -10,7 +10,7 @@ const Header = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const publicPage = ["/", "/*", "/login"];
+    const publicPage = ["/", "/*", "/login", "/signup"];
 
     // 로그인해야 되는 페이지 이거나, 비로그인 상태일 경우
     if (!publicPage.includes(location.pathname) && !isAuthenticated) {
@@ -25,6 +25,10 @@ const Header = () => {
     }
   }, [location, nav, isAuthenticated]);
 
+  /**
+   * 로그아웃 기능
+   * @returns
+   */
   const logoutHandler = async () => {
     if (!confirm("로그아웃 하시겠습니까?")) {
       return;
@@ -40,10 +44,17 @@ const Header = () => {
     }
   };
 
+  /**
+   * 메인 페이지 이동
+   */
+  const moveToHomepage = () => {
+    nav("/");
+  };
+
   return (
     <header className="header_wrap">
       <div className="header_box">
-        <h1 className="header_logo"></h1>
+        <h1 className="header_logo" onClick={moveToHomepage}></h1>
         <Gnb />
         <div className="header_login_box">
           {!isAuthenticated ? (
@@ -51,15 +62,7 @@ const Header = () => {
               <Link to="/login" className="header_login_item">
                 로그인
               </Link>
-              <Link
-                to="/"
-                className="header_login_item"
-                onClick={(e) => {
-                  alert("페이지 작업중입니다.");
-                  e.preventDefault();
-                  return;
-                }}
-              >
+              <Link to="/signup" className="header_login_item">
                 회원가입
               </Link>
             </>

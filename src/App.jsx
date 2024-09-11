@@ -6,6 +6,7 @@ import NotFound from "./pages/Error/NotFound";
 import Header from "./components/Header";
 import "./styles/reset.min.css";
 import { AuthProvider } from "./components/auth/AuthProvider";
+import SignUp from "./pages/\bSignup/SignUp";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />}></Route>
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </Router>

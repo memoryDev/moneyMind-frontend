@@ -1,0 +1,25 @@
+.signup_btn_wrap {
+  padding-top: 20px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+.signup_btn_wrap .button {
+  cursor: pointer;
+  display: block;
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  border-width: 0;
+  background: rgb(82, 106, 240);
+  color: #fff;
+  font-size: 14px;
+  border-radius: 5px;
+  margin: 0 5px;
+}
+
+.signup_btn_wrap .cancel {
+  background: rgb(52, 52, 52, 0.3);
+  color: #fff;
+}

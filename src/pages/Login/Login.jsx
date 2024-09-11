@@ -62,6 +62,13 @@ const Login = () => {
     return true;
   };
 
+  /**
+   * 회원가입 페이지 이동
+   */
+  const navigateToSignup = () => {
+    nav("/signup");
+  };
+
   return (
     <>
       <div className="login_wrap">
@@ -93,7 +100,7 @@ const Login = () => {
             <button className="active" onClick={loginHandler}>
               로그인
             </button>
-            <button>회원가입</button>
+            <button onClick={navigateToSignup}>회원가입</button>
           </div>
         </div>
       </div>
