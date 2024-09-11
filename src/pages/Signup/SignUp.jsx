@@ -7,7 +7,7 @@ import "./SignUp.css";
 
 const SignUp = () => {
   const nav = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, login } = useAuth();
 
   // 상태관리 : 아이디 중복
   const [isDuplicate, setIsDuplicate] = useState(false);
@@ -17,7 +17,7 @@ const SignUp = () => {
   const [formData, setFormData] = useState({
     userid: "", // 유저아이디
     password: "", // 패스워드
-    confirmPasasword: "", // 패스워드 확인
+    confirmPassword: "", // 패스워드 확인
     name: "", // 이름
     email: "", // 이메일
     domain: "", // 이메일 도메인
@@ -53,6 +53,63 @@ const SignUp = () => {
     // 유효성 검사
     if (!validateForm()) {
       return;
+    }
+
+    const url = "/api/signup";
+    const paramData = {
+      userid: formData.userid,
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+      name: formData.name,
+      email: formData.email + "@" + formData.domain,
+      authProvider: "LOCAL",
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const { status, data } = await axios.post(url, paramData, config);
+      console.log("status : " + status);
+
+      // 통신오류 발생시
+      if (status !== 200) {
+        alert("API 통신에 실패 하였습니다.11");
+        return;
+      }
+
+      // 회원가입 성공시 - 로그인 처리
+      const success = await login(paramData.userid, paramData.password);
+      if (success) {
+        nav("/");
+      } else {
+        alert("일시적으로 로그인 실패하였습니다. 다시 로그인 진행해주세요.");
+        nav("/login");
+      }
+    } catch (error) {
+      const newErrors = {};
+      // 기존 오류 초기화
+      setErrors(newErrors);
+
+      if (!error.response) {
+        alert("API 통신에 실패 하였습니다.22");
+        console.error(error);
+        return;
+      }
+
+      const { status, data } = error.response;
+
+      // 서버가 반환하는 오류가 객체인경우
+      if (typeof data === "object") {
+        for (const key in data) {
+          newErrors[key] = data[key];
+        }
+      }
+
+      setErrors(newErrors);
     }
   };
 
@@ -115,11 +172,13 @@ const SignUp = () => {
 
     if (!formData.userid.trim()) {
       newErrors.userid = "아이디를 입력해주세요.";
+    } else if (!isDuplicate) {
+      newErrors.userid = "아이디 중복검사를 진행해주세요";
     } else if (!formData.password.trim()) {
       newErrors.password = "비밀번호를 입력해주세요.";
-    } else if (!formData.confirmPasasword.trim()) {
-      newErrors.confirmPasasword = "비밀번호 확인을 입력해주세요";
-    } else if (formData.password.trim() !== formData.confirmPasasword.trim()) {
+    } else if (!formData.confirmPassword.trim()) {
+      newErrors.confirmPassword = "비밀번호 확인을 입력해주세요";
+    } else if (formData.password.trim() !== formData.confirmPassword.trim()) {
       newErrors.password = "비밀번호가 일치하지 않습니다.";
     } else if (!formData.name.trim()) {
       newErrors.name = "이름을 입력해주세요.";
@@ -127,11 +186,9 @@ const SignUp = () => {
       newErrors.email = "이메일 입력해주세요.";
     } else if (!formData.domain.trim()) {
       newErrors.domain = "이메일 도메인 입력해주세요.";
-    } else if (!isDuplicate) {
-      newErrors.userid = "아이디 중복검사를 진행해주세요";
     }
 
-    setIsDuplicate(true);
+    // setIsDuplicate(true);
     setErrors(newErrors);
 
     return Object.keys(newErrors).length === 0;

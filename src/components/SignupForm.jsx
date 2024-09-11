@@ -22,6 +22,7 @@ const SignupForm = ({ formData, onChange, errors, useridCheck }) => {
           <InputTextButton
             name="password"
             title="비밀번호"
+            type="password"
             placeholder="비밀번호를 입력해주세요."
             value={formData.password}
             onChange={onChange}
@@ -29,12 +30,13 @@ const SignupForm = ({ formData, onChange, errors, useridCheck }) => {
           />
 
           <InputTextButton
-            name="confirmPasasword"
+            name="confirmPassword"
             title="비밀번호 확인"
+            type="password"
             placeholder="비밀번호 확인을 입력해주세요."
-            value={formData.confirmPasasword}
+            value={formData.confirmPassword}
             onChange={onChange}
-            error={errors.errconfirmPasasword}
+            error={errors.confirmPassword}
           />
 
           <InputTextButton

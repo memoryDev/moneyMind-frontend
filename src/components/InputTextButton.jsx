@@ -2,6 +2,7 @@ import "./InputTextButton.css";
 const InputTextButton = ({
   name,
   title,
+  type,
   placeholder,
   btnName,
   value,
@@ -47,7 +48,7 @@ const InputTextButton = ({
         </div>
         <div className="input_box">
           <input
-            type="text"
+            type={type === "password" ? "password" : "text"}
             className="input"
             name={name}
             id={name}

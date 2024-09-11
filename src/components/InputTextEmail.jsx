@@ -10,11 +10,21 @@ const InputTextEmail = ({
   error,
   errorDomain,
 }) => {
+  const handleErrorDisplay = () => {
+    // error내용이없으면 출력x
+    if (!error) {
+      return;
+    }
+
+    return <p>{error}</p>;
+  };
+
   return (
     <>
       <div className="input_wrap">
         <div className="input_top_box">
           <h4>{title}</h4>
+          {handleErrorDisplay()}
         </div>
         <div className="input_box">
           <input
