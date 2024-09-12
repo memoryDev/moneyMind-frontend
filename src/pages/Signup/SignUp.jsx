@@ -2,7 +2,7 @@ import { useAuth } from "../../components/auth/AuthProvider";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import SignupForm from "../../components/SignupForm";
+import SignupForm from "../../components/signup/SignupForm";
 import "./SignUp.css";
 
 const SignUp = () => {
@@ -83,6 +83,8 @@ const SignUp = () => {
 
       // 회원가입 성공시 - 로그인 처리
       const success = await login(paramData.userid, paramData.password);
+
+      // 로그인 성공/실패여부
       if (success) {
         nav("/");
       } else {

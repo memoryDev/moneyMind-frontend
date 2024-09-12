@@ -1,6 +1,6 @@
 import "./SignupForm.css";
-import InputTextButton from "./InputTextButton";
-import InputTextEmail from "./InputTextEmail";
+import InputTextButton from "../input/InputTextButton";
+import InputTextEmail from "../input/InputTextEmail";
 
 const SignupForm = ({ formData, onChange, errors, useridCheck }) => {
   return (
