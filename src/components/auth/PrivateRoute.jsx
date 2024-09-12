@@ -4,7 +4,7 @@ import { useEffect } from "react";
 // 인증 상태를 확인하기 위해 AuthProvider에서 useAuth 훅 import
 import { useAuth } from "./AuthProvider";
 
-const PrivateRoute = ({ element: Component, children }) => {
+const PrivateRoute = ({ children }) => {
   // 현재 로그인 상태 조회
   const { isAuthenticated } = useAuth();
   const location = useLocation();

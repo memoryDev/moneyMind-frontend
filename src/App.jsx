@@ -9,6 +9,7 @@ import { AuthProvider } from "./components/auth/AuthProvider";
 import SignUp from "./pages/\bSignup/SignUp";
 import CategoryManager from "./pages/Category/CategoryManager";
 import PrivateRoute from "./components/auth/PrivateRoute";
+import PublicRoute from "./components/auth/PublicRoute";
 
 function App() {
   return (
@@ -18,9 +19,34 @@ function App() {
           <Header />
           <Routes>
             {/* ===== 비로그인 ===== */}
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />}></Route>
+            <Route path="/" element={<PublicRoute element={Home} />} />
+
+            <Route
+              path="/"
+              element={
+                <PublicRoute>
+                  <Home />
+                </PublicRoute>
+              }
+            ></Route>
+
+            <Route
+              path="/login"
+              element={
+                <PublicRoute restricted={true}>
+                  <Login />
+                </PublicRoute>
+              }
+            ></Route>
+
+            <Route
+              path="/signup"
+              element={
+                <PublicRoute restricted={true}>
+                  <SignUp />
+                </PublicRoute>
+              }
+            ></Route>
 
             {/* ===== 로그인 ===== */}
             <Route
