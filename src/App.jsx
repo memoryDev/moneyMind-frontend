@@ -7,6 +7,8 @@ import Header from "./components/Header";
 import "./styles/reset.min.css";
 import { AuthProvider } from "./components/auth/AuthProvider";
 import SignUp from "./pages/\bSignup/SignUp";
+import CategoryManager from "./pages/Category/CategoryManager";
+import PrivateRoute from "./components/auth/PrivateRoute";
 
 function App() {
   return (
@@ -15,9 +17,19 @@ function App() {
         <Router>
           <Header />
           <Routes>
+            {/* ===== 비로그인 ===== */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />}></Route>
+
+            {/* ===== 로그인 ===== */}
+            <Route
+              path="/category"
+              element={
+                <PrivateRoute component={CategoryManager}></PrivateRoute>
+              }
+            ></Route>
+
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </Router>

@@ -7,23 +7,6 @@ import { useAuth } from "./auth/AuthProvider";
 const Header = () => {
   const { isAuthenticated, logout } = useAuth();
   const nav = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    const publicPage = ["/", "/*", "/login", "/signup"];
-
-    // 로그인해야 되는 페이지 이거나, 비로그인 상태일 경우
-    if (!publicPage.includes(location.pathname) && !isAuthenticated) {
-      alert("로그인 페이지로 이동합니다.");
-      nav("/login");
-      return;
-    }
-
-    // 로그인페이지이고 로그인 상태인 있는경우
-    if (location.pathname === "/login" && isAuthenticated) {
-      nav("/");
-    }
-  }, [location, nav, isAuthenticated]);
 
   /**
    * 로그아웃 기능
