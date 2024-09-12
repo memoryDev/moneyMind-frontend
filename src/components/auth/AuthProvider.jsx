@@ -1,25 +1,30 @@
 import axios from "axios";
 import { createContext, useContext, useState, useEffect } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 // 인증 관련 정보를 공유하기 위한 Context
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   // 로그인 상태를 관리하기 위한 상태 변수
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   // 컴포넌트가 처음 렌더링될 때 실행
   useEffect(() => {
-    // 로컬 스토리지에 access 가져오기
-    const accessToken = localStorage.getItem("access");
+    const checkAuth = async () => {
+      // 로컬 스토리지에 access 가져오기
+      const accessToken = localStorage.getItem("access");
 
-    // access이 존재하면 로그인 상태로 전환
-    if (accessToken) {
-      setIsAuthenticated(true);
-    } else {
-      // access 토큰이 존재하지 않으면 로그아웃 상태로 전환
-      setIsAuthenticated(false);
-    }
+      // access이 존재하면 로그인 상태로 전환
+      if (accessToken) {
+        setIsAuthenticated(true);
+      } else {
+        // access 토큰이 존재하지 않으면 로그아웃 상태로 전환
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkAuth();
   }, []);
 
   /**
@@ -113,7 +118,8 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{ isAuthenticated, setIsAuthenticated, login, logout }}
     >
-      {children}
+      {/* 인증 상태가 결정 될때까지 대기 */}
+      {isAuthenticated === null ? "" : children}
     </AuthContext.Provider>
   );
 };

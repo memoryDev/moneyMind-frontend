@@ -26,7 +26,9 @@ function App() {
             <Route
               path="/category"
               element={
-                <PrivateRoute component={CategoryManager}></PrivateRoute>
+                <PrivateRoute>
+                  <CategoryManager />
+                </PrivateRoute>
               }
             ></Route>
 
