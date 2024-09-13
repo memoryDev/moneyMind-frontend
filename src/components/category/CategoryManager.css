@@ -1,0 +1,14 @@
+.category_wrap {
+  width: 1140px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+.category_wrap .row {
+  padding: 60px 20px 0;
+}
+.category_wrap .category_box .category_top {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+}

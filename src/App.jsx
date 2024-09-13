@@ -7,9 +7,9 @@ import Header from "./components/Header";
 import "./styles/reset.min.css";
 import { AuthProvider } from "./components/auth/AuthProvider";
 import SignUp from "./pages/\bSignup/SignUp";
-import CategoryManager from "./pages/Category/CategoryManager";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import PublicRoute from "./components/auth/PublicRoute";
+import CategoryManagerPage from "./pages/Category/CategoryManagerPage";
 
 function App() {
   return (
@@ -53,7 +53,7 @@ function App() {
               path="/category"
               element={
                 <PrivateRoute>
-                  <CategoryManager />
+                  <CategoryManagerPage />
                 </PrivateRoute>
               }
             ></Route>

@@ -1,0 +1,20 @@
+.category_filter_wrap {
+  display: flex;
+}
+
+.category_filter_wrap button {
+  border-width: 0;
+  border-bottom: 4px solid #fff;
+  background: #fff;
+  display: block;
+  width: 100px;
+  height: 40px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.category_filter_wrap button.active {
+  border-bottom-color: rgb(82 106 240);
+  color: rgb(82 106 240);
+  font-weight: bold;
+}

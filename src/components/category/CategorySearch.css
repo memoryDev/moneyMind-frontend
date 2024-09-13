@@ -1,0 +1,29 @@
+.category_search_warp {
+  display: flex;
+}
+.category_search_warp select {
+  display: block;
+  width: 100px;
+  height: 40px;
+  border: 1px solid #999;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+.category_search_warp .search_input {
+  display: block;
+  width: 200px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  border: 1px solid #999;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.category_search_warp button {
+  display: block;
+  width: 80px;
+  border: 1px solid #999;
+  border-radius: 5px;
+  background: rgb(75, 90, 214);
+  color: #fff;
+}

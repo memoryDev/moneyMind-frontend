@@ -1,0 +1,38 @@
+.pagination_wrap {
+  display: flex;
+  padding: 20px 0;
+  justify-content: center;
+}
+.pagination_wrap .pagination_btn {
+  display: block;
+  border-width: 0;
+  background: #fff;
+  padding: 0;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+.pagination_wrap .pagination_item_wrap {
+}
+.pagination_wrap .pagination_item_wrap .pagination_item {
+  display: flex;
+}
+.pagination_wrap .pagination_item_wrap .pagination_item button {
+  display: block;
+  border: 1px solid #999;
+  background: #fff;
+  padding: 0;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  color: #333;
+  border-radius: 5px;
+  margin: 0 3px;
+}
+
+.pagination_wrap .pagination_item_wrap .pagination_item button.active {
+  border-color: rgb(82 106 240);
+  background: rgb(82 106 240);
+  color: #fff;
+  font-weight: bold;
+}

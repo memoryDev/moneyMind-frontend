@@ -1,0 +1,14 @@
+.CategoryAddButton_wrap {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 0 0;
+}
+
+.CategoryAddButton_wrap .add_button {
+  display: block;
+  padding: 10px;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid #999;
+  cursor: pointer;
+}
