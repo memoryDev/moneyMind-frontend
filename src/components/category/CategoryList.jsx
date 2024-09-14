@@ -1,8 +1,9 @@
 import "./CategoryList.css";
+import CategoryItem from "./CategoryItem";
 
-const CategoryList = () => {
-  // 임시 데이터 함수
-  const test = () => {
+const CategoryList = ({ categories }) => {
+  // 카테고리 아이템 생성
+  const createCategoryItem = () => {
     return (
       <div className="category_list_item">
         <div className="category_item chk">
@@ -29,16 +30,9 @@ const CategoryList = () => {
           <div className="header_item name">이름</div>
           <div className="header_item fixed">고정여부</div>
         </div>
-        {test()}
-        {test()}
-        {test()}
-        {test()}
-        {test()}
-        {test()}
-        {test()}
-        {test()}
-        {test()}
-        {test()}
+        {categories.map((category) => (
+          <CategoryItem key={category.id} {...category}></CategoryItem>
+        ))}
       </div>
     </>
   );
